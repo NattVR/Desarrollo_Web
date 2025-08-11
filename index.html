@@ -142,8 +142,13 @@
         }
 
         function resetGame() {
-            alert("El juego termino. Reiniciando...");
-            location.reload();
+            alert("El juego terminó. Reiniciando...");
+            jugador1.vida = 100;
+            jugador2.vida = 100;
+            document.querySelector(".vida_jugador1").value = jugador1.vida;
+            document.querySelector(".vida_jugador2").value = jugador2.vida;
+            turno = Math.floor(Math.random() * 2) + 1;
+            bloquearBotones(turno);           
         }
 
         function mostrarExplosion(jugador) {
