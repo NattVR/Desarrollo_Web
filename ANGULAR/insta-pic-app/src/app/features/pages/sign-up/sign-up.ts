@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { passwordValidator } from './../../../shared/validators/password-validator';
 
 @Component({
   selector: 'app-sign-up',
@@ -23,10 +24,14 @@ export class SignUp {
     email:['', [Validators.required]],
     password:['', this.validators],
     rePassword:['',  this.validators],
-  })
+  }, { validators: passwordValidator('password' , 'rePassword') });
 
 
   onSignUp(){
+    if (this.signUpForm.hasError('passwordMismatch')) {
+      alert('Las contraseñas no coinciden');
+      return;
+    }
     if(!this.signUpForm.valid){
       alert('Faltan campos por diligenciar');
       return;
@@ -40,6 +45,7 @@ export class SignUp {
     }
 
     localStorage.setItem(user.username!, JSON.stringify(user));
+    alert('Usuario registrado exitosamente');
 
     //let user2 = JSON.parse(JSON.stringify(user))
 
