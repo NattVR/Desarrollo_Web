@@ -1,0 +1,15 @@
+<h1>Ejemplo práctico del Ciclo de Vida</h1>
+
+<input type="text" [(ngModel)]="texto" />
+
+<button (click)="mostrar = !mostrar">
+  {{ mostrar ? 'Destruir Componente' : 'Crear Componente' }}
+</button>
+
+@if (mostrar){
+<app-ciclo-de-vida [mensaje] ="texto" >
+  <p> Este es contenido proyectado desde el padre</p>
+</app-ciclo-de-vida>
+} @else {
+  <p>Componente destruido</p>
+}

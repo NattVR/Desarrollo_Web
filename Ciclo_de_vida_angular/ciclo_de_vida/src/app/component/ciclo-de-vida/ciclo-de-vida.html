@@ -1,0 +1,10 @@
+<div style="border:1px solid #ccc; padding:10px; margin:10px;">
+  <h3>Ciclo de Vida del Componente</h3>
+
+  <p><strong>Mensaje recibido:</strong> {{ mensaje }}</p>
+
+  <p #contadorRef>Contador: {{contador}}</p>
+  <button (click)="aumentar()">Contador</button>
+
+  <ng-content></ng-content>
+</div>
