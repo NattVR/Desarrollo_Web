@@ -32,9 +32,4 @@ export class User {
   @OneToMany(()=>Comment , comment=>comment.user)
   comments:Comment[];
 
-  @BeforeInsert()
-  @BeforeUpdate()
-  preCreate() {
-    this.name = this.name.toLowerCase();
-  }
 }

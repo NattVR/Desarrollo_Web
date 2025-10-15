@@ -11,7 +11,7 @@ import { ImageModule } from './image/image.module';
   imports: [AuthModule,
     ImageModule,
     UserModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({isGlobal:true}), // para que las variables de entorno esten disponibles en toda la app
     TypeOrmModule.forRoot({
       type:'postgres',
       host:process.env.DB_HOST,

@@ -6,6 +6,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import bcrypt, { hash } from 'node_modules/bcryptjs';
 
 @Injectable()
 export class UserService {
@@ -16,8 +17,11 @@ export class UserService {
   users: CreateUserDto[] = []
 
   async create(createUserDto: CreateUserDto) {
+      const salt = bcrypt.genSaltSync(10);
+      const hash = bcrypt.hashSync(createUserDto.password, salt);
+
       try {
-        const userEntity = this.userRepository.create(createUserDto);
+        const userEntity = this.userRepository.create({...createUserDto, password: hash });
 
         await this.userRepository.save(userEntity);
         return {
@@ -60,5 +64,9 @@ export class UserService {
   remove(id:string) {
     this.users.forEach(user=> {if(user.id ===id){ user.isActive= false}})
 
+  }
+
+  findByUsername(username:string){
+    return this.userRepository.findOneBy({username})
   }
 }
